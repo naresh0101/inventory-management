@@ -26,6 +26,8 @@ import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 
+// components
+
 const drawerWidth = 250;
 
 const colorList = [
@@ -95,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     paddingLeft: "0px",
     paddingRight: "0px",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     [theme.breakpoints.up("md")]: {
       marginRight: "30px"
     },

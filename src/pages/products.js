@@ -2,7 +2,9 @@ import React,{useEffect,useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import EachProduct from '../components/eachProduct';
 import DailogBox from '../components/modal';
-import products from '../demodata/index.json'
+import PageHeader from '../components/pageHeader';
+import  products from "../demodata/index.json";
+import { setDate } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
   title : {
@@ -52,7 +54,7 @@ const Products = (props) => {
   const handleClose = (actionType)=>{
     setOpen(false)
     setActiveProduct({...activeproduct, product})
-    console.log(activeproduct);
+    console.log({...activeproduct, product});
   }
 
   const handleInputValues = (e) => {
@@ -66,11 +68,22 @@ const Products = (props) => {
   const showalert = ()=>{
     return true
   }
+
+  const searchProduct = (value)=>{
+    if(value != "" || value != null){
+      setData(
+        products.filter(p=>  p["drug_code"]  == value ||  p["batch_number"]  == value  )
+      )
+    }else{
+      alert("hi");
+      setDate(products)
+    }
+  }
   
   return (
     <div  className={classes.root} >
+      <PageHeader searchProduct={searchProduct} />
       <EachProduct handleAction={handleAction} data={data} />
-
       {/* Modal here foradd and edit */}
       <DailogBox activeproduct={activeproduct} handleExpiry={handleExpiry} handleInputValues={handleInputValues} ModalOpenFor={ModalOpenFor} open={open} handleClose={handleClose}/>
     </div>
