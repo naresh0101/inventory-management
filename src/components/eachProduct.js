@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CardContent, Typography } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Card from '@material-ui/core/Card';
+import moment from 'moment';
 
 import "./index.scss"
 import Hamburger from './hamburger';
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 const EachProduct = (props) => {
   const classes = useStyles();
   const {data,handleAction} = props
-
   return (
     <div>
       <div style={{ padding: "10px" }} className={classes.grid6}>
@@ -53,7 +53,7 @@ const EachProduct = (props) => {
                 <Typography className={classes.columnValue}>{product["drug_code"]}</Typography>
                 <Typography className={classes.columnValue}>{product["batch_number"]}</Typography>
                 <Typography className={classes.columnValue}>{product["MRP"]}</Typography>
-                <Typography className={classes.columnValue}>12/01/2020</Typography>
+                <Typography className={classes.columnValue}>{moment(product["expiry"]).format('DD/MM/YYYY')}</Typography>
                 <Typography className={classes.columnValue}>{product["f_comp"]} </Typography>
                 <Typography className={classes.columnValue}>
                   <Hamburger handleAction={handleAction} product={product} iconType={<MoreVertIcon style={{ margin: "0" }} />} />

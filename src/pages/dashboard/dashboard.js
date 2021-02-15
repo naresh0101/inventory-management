@@ -6,7 +6,6 @@ import Layout from '../../hoc/dashboardLayout';
 import Products from '../products';
 import Home from '../home';
 
-
 const Dashboard = (props) => {
     
     return (

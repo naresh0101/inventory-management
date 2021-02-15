@@ -70,9 +70,9 @@ const MuiDialogContentWithStyle = withStyles(() => ({
   
 const DailogBox = (props) => {
     const classes = useStyles()
-    const { open,formValues,ModalOpenFor, handleClose, handleInputValues, handleExpiry } = props
-    const [errors, setErrors] = useState({});
+    const { open,handleOpen,formValues,ModalOpenFor, handleClose, handleInputValues, handleExpiry ,error} = props
     const NotmobileView = useMediaQuery("(min-width:768px)")
+    
     return (
         <div>
             <DialogWithStyle
@@ -91,7 +91,7 @@ const DailogBox = (props) => {
                                 size="small"
                                 defaultValue={ModalOpenFor !="add" ? formValues["batch_number"]:""}
                                 onChange={handleInputValues}
-                                error={errors.serviceCost}
+                                error={error}
                             />
 
                         </Grid>
@@ -103,7 +103,7 @@ const DailogBox = (props) => {
                                 size="small"
                                 defaultValue={ModalOpenFor !="add" ? formValues['f_comp']:""}
                                 onChange={handleInputValues}
-                                error={errors.serviceCost}
+                                error={error}
                             />
                         </Grid>
                         <Grid item sm={12} className={classes.fieldWrapper}>
@@ -114,7 +114,7 @@ const DailogBox = (props) => {
                                 size="small"
                                 defaultValue={ModalOpenFor !="add" ? formValues["MRP"]:""}
                                 onChange={handleInputValues}
-                                error={errors.serviceCost}
+                                error={error}
                             />
                         </Grid>
                         <Grid item sm={12} className={classes.fieldWrapper}>
@@ -139,7 +139,7 @@ const DailogBox = (props) => {
                     </Grid>
                 </MuiDialogContentWithStyle>
                 <DialogActions>
-                    <Button autoFocus onClick={handleClose} color="primary">
+                    <Button autoFocus onClick={handleOpen} color="primary">
                         Cancel </Button>
                     <Button onClick={handleClose} color="primary" autoFocus>
                         Add </Button>
