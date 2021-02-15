@@ -4,7 +4,6 @@ import EachProduct from '../components/eachProduct';
 import DailogBox from '../components/modal';
 import PageHeader from '../components/pageHeader';
 import  products from "../demodata/index.json";
-import { setDate } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
   title : {
@@ -18,13 +17,19 @@ const useStyles = makeStyles(theme => ({
   },
  
 }));
-
+const initialValues = {
+  batch_number: "",
+  drug_code: "",
+  f_comp: "",
+  MRP: "",
+  expiry:new Date()
+}
 const Products = (props) => { 
   const classes = useStyles();
+  const [formValues, setFormValues] = useState(initialValues);
   const [data,setData] = useState(null)
   const [open,setOpen] = useState(false)
   const [ModalOpenFor, setModalOpenForm] = useState("add") 
-  const [activeproduct,setActiveProduct] = useState(null) // edit or delete data store 
   const [product,setProduct] = useState(null) // create product or store dit edit value 
   
   useEffect(() => {
@@ -40,8 +45,10 @@ const Products = (props) => {
   }, []);
 
   const handleAction = (item,actionType)=>{
-    setActiveProduct(item)
-    if(actionType === "delete"){
+    setFormValues(item)
+    if(actionType === "add"){
+      setOpen(true)
+    } if(actionType === "delete"){
       showalert()
       // and some api call
       setData(data.filter((p)=> p["drug_code"] !== item["drug_code"]))
@@ -51,10 +58,14 @@ const Products = (props) => {
     }
  
   }
-  const handleClose = (actionType)=>{
+  const handleAdd = ()=>{
+    setOpen(true)
+  }
+  const handleFormData = (actionType)=>{
     setOpen(false)
-    setActiveProduct({...activeproduct, product})
-    console.log({...activeproduct, product});
+    setModalOpenForm('add')
+    setProduct({...product, ["drug_code"]:data.length + 1})
+    setData([...data, product])
   }
 
   const handleInputValues = (e) => {
@@ -62,7 +73,10 @@ const Products = (props) => {
     setProduct({...product,  [name]: value })
   }
   const handleExpiry = (date)=>{
-    setProduct({...product,  expiry: date })
+    setFormValues({
+      ...formValues,
+      expiry: date,
+    })  
   }
 
   const showalert = ()=>{
@@ -76,16 +90,23 @@ const Products = (props) => {
       )
     }else{
       alert("hi");
-      setDate(products)
+      // setDate(products)
     }
   }
+
   
   return (
     <div  className={classes.root} >
-      <PageHeader searchProduct={searchProduct} />
-      <EachProduct handleAction={handleAction} data={data} />
+      <PageHeader searchProduct={searchProduct}  handleAdd={handleAdd}/>
+      <EachProduct handleAction={handleAction} data={data}/>
       {/* Modal here foradd and edit */}
-      <DailogBox activeproduct={activeproduct} handleExpiry={handleExpiry} handleInputValues={handleInputValues} ModalOpenFor={ModalOpenFor} open={open} handleClose={handleClose}/>
+      <DailogBox 
+      formValues={formValues} 
+      handleExpiry={handleExpiry} 
+      handleInputValues={handleInputValues} 
+      ModalOpenFor={ModalOpenFor} 
+      open={open} 
+      handleClose={handleFormData}/>
     </div>
   )
 }

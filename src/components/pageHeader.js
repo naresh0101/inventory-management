@@ -74,26 +74,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const PageHeader = (props) => {
-  const {searchProduct} = props
-  const [openDialog, setOpenDialog] = useState(false);
+  const {searchProduct,handleAdd} = props
   const NotMobileView = useMediaQuery("(min-width:768px)")
 
   const classes = useStyles();
-
-  const handleTab = (val) => {
-  }
-
   const handleOnClick = () => {
-    
+    handleAdd("actionType");
   }
 
-  const handleOpenDialog = (val) => {
 
-}
-
-  const handleAdd = (formValues) => {
-
-  }
 
   return (
     <Fragment>

@@ -70,10 +70,9 @@ const MuiDialogContentWithStyle = withStyles(() => ({
   
 const DailogBox = (props) => {
     const classes = useStyles()
-    const { open,activeproduct, handleClose, handleInputValues, handleExpiry } = props
+    const { open,formValues,ModalOpenFor, handleClose, handleInputValues, handleExpiry } = props
     const [errors, setErrors] = useState({});
     const NotmobileView = useMediaQuery("(min-width:768px)")
-
     return (
         <div>
             <DialogWithStyle
@@ -81,7 +80,7 @@ const DailogBox = (props) => {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle >{activeproduct != null ? "Edit product":"Add new product"}</DialogTitle>
+                <DialogTitle style={{padding:"0px"}}>{ModalOpenFor !="add" ? "Edit product":"Add new product"}</DialogTitle>
                 <MuiDialogContentWithStyle className={classes.ofhidden} style={{height: NotmobileView ? 'auto':'66vh'}}>
                     <Grid container spacing={2} display="flex" alignItems="center">
                         <Grid item sm={12} className={classes.fieldWrapper}>
@@ -90,7 +89,7 @@ const DailogBox = (props) => {
                                 label="Batch no. "
                                 type="text"
                                 size="small"
-                                defaultValue={activeproduct != null ? activeproduct["batch_number"]:""}
+                                defaultValue={ModalOpenFor !="add" ? formValues["batch_number"]:""}
                                 onChange={handleInputValues}
                                 error={errors.serviceCost}
                             />
@@ -98,22 +97,11 @@ const DailogBox = (props) => {
                         </Grid>
                         <Grid item sm={12} className={classes.fieldWrapper}>
                             <InputField
-                                name="drug_code"
-                                label="Drug code "
-                                type="text"
-                                size="small"
-                                defaultValue={activeproduct != null ? activeproduct["drug_code"]:""}
-                                onChange={handleInputValues}
-                                error={errors.serviceCost}
-                            />
-                        </Grid>
-                        <Grid item sm={12} className={classes.fieldWrapper}>
-                            <InputField
                                 name="f_comp"
                                 label="F camp"
                                 type="text"
                                 size="small"
-                                defaultValue={activeproduct != null ? activeproduct['f_comp']:""}
+                                defaultValue={ModalOpenFor !="add" ? formValues['f_comp']:""}
                                 onChange={handleInputValues}
                                 error={errors.serviceCost}
                             />
@@ -124,7 +112,7 @@ const DailogBox = (props) => {
                                 label="Price"
                                 type="text"
                                 size="small"
-                                defaultValue={activeproduct != null ? activeproduct["MRP"]:""}
+                                defaultValue={ModalOpenFor !="add" ? formValues["MRP"]:""}
                                 onChange={handleInputValues}
                                 error={errors.serviceCost}
                             />
@@ -139,7 +127,7 @@ const DailogBox = (props) => {
                                     margin="normal"
                                     label="Expiry date"
                                     size="small"
-                                    defaultValue={activeproduct != null ? activeproduct["expiry"]:""}
+                                    value={formValues.expiry}
                                     autoOk={true}
                                     onChange={handleExpiry}
                                     KeyboardButtonProps={{

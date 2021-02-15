@@ -46,7 +46,7 @@ const EachProduct = (props) => {
         <Typography ></Typography>
       </div>
       {
-        data?.map((product, _i) => {
+       data != null && data.map((product, _i) => {
           return (
             <Card className={classes.card} key={_i}>
               <CardContent className={classes.grid6}>
@@ -56,7 +56,7 @@ const EachProduct = (props) => {
                 <Typography className={classes.columnValue}>12/01/2020</Typography>
                 <Typography className={classes.columnValue}>{product["f_comp"]} </Typography>
                 <Typography className={classes.columnValue}>
-                  <Hamburger handleAction={handleAction} product={product} iconType={<MoreVertIcon style={{ margin: "0" }} />} actionItem={null} />
+                  <Hamburger handleAction={handleAction} product={product} iconType={<MoreVertIcon style={{ margin: "0" }} />} />
                 </Typography>
               </CardContent>
             </Card>
